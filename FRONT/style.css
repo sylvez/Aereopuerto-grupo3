@@ -1,0 +1,66 @@
+body{
+    background-image: url(https://image.slidesdocs.com/responsive-images/background/colorful-auspicious-clouds-colorful-fantasy-clouds-cartoon-illustration-sky-cute-powerpoint-background_02cd6ee924__960_540.jpg);
+    background-size: 1400px 640px;
+}
+
+.login-container {
+background-color: #9fdf90;
+padding: 20px;
+border-radius: 8px;
+box-shadow: 0 0 10px rgba(184, 242, 97, 0.1);
+width: 400px;
+text-align: center;
+position: relative;
+left: 15%;
+top: 20px;
+}
+
+.login-container h2 {
+margin-bottom: 20px;
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
+width: 100%;
+padding: 10px;
+margin-bottom: 10px;
+border: 1px solid #e46868;
+border-radius: 4px;
+box-sizing: border-box;
+}
+
+.login-container input[type="submit"] {
+width: 100%;
+padding: 10px;
+background-color: #e20606;
+color: #d2f0ca;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+}
+
+.login-container input[type="submit"]:hover {
+background-color: #0056b3;
+}
+
+
+img {
+    position: absolute;
+    top: 310px;
+    left: 70%;
+    width: 350px;
+    transform: translate(-50%, -50%); 
+    animation: volar 1.5s linear infinite; 
+}
+
+/* Definición de la animación */
+@keyframes volar {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    50% { transform: translate(-50%, -50%) rotate(8deg); }
+    100% { transform: translate(-50%, -50%) rotate(-2deg); }
+}
+
+ img {
+    width: 500px; 
+    height: auto; 
+}

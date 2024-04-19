@@ -95,12 +95,12 @@ footer {
 .avion {
     width: 100px;
     height: 50px;
-    position: absolute;
-    top: 70px;
-    left: -100px;
+    position: fixed;
+    top: 4%;
+    left: -100%;
     transform: translateY(-50%);
-    animation: moverAvion 5s linear infinite;
-    opacity: 60%;
+    animation: moverAvion 4s linear infinite;
+    opacity: 28%;
 }
 
 /* Animación del avión */

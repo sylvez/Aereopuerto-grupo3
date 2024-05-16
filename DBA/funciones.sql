@@ -1,3 +1,9 @@
+
+use Aereo;
+
+
+
+
 DELIMITER $
 CREATE PROCEDURE insertarUsuarios(IN nombreP VARCHAR(25), IN npasaporteP INT, IN paisP VARCHAR(25), IN direccionP VARCHAR(25), IN telefono INT, IN claveP VARCHAR(25))
 BEGIN

@@ -1,4 +1,7 @@
-function generarReciboCompra(idAsiento, numeroBoleto) {
+function generarReciboCompra(numeroBoleto) {
+    // Generar ID de Asiento aleatorio
+    var idAsiento = generateRandomSeat();
+
     // Mostrar recibo en la consola
     console.log("Recibo de Compra");
     console.log("-----------------");
@@ -22,18 +25,25 @@ function generarReciboCompra(idAsiento, numeroBoleto) {
     var numeroBoletoParrafo = document.createElement("p");
     numeroBoletoParrafo.textContent = "Número de Boleto: " + numeroBoleto;
     recibo.appendChild(numeroBoletoParrafo);
+
+    // Agregar botón de descarga
+    var botonDescarga = document.createElement("button");
+    botonDescarga.textContent = "Descargar Boleto";
+    botonDescarga.addEventListener("click", function() {
+        descargarBoleto(numeroBoleto, idAsiento);
+    });
+    recibo.appendChild(botonDescarga);
 }
 
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("Comprar").addEventListener("click", function() {
-        var idAsiento = "A12"; // Supongamos que esto proviene de algún lugar en tu aplicación
-        var numeroBoleto = generateRandomTicket(); // Generar número de boleto aleatorio
-        generarReciboCompra(idAsiento, numeroBoleto);
+        var numeroBoleto = generateRandomTicket(); 
+        generarReciboCompra(numeroBoleto);
     });
 });
 
 function generateRandomTicket() {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const characters = 'ABCDEFGHI0123456789';
     const ticketLength = 8;
     let ticket = '';
     for (let i = 0; i < ticketLength; i++) {
@@ -42,3 +52,51 @@ function generateRandomTicket() {
     }
     return ticket;
 }
+
+function generateRandomSeat() {
+    const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
+    const cols = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10'];
+    const randomRow = rows[Math.floor(Math.random() * rows.length)];
+    const randomCol = cols[Math.floor(Math.random() * cols.length)];
+    return randomRow + randomCol;
+}
+
+function descargarBoleto(numeroBoleto, idAsiento) {
+    // Aquí puedes implementar la lógica para descargar el boleto,
+    // por ejemplo, creando un archivo PDF y proporcionando un enlace de descarga.
+    alert("Boleto descargado: Número de Boleto - " + numeroBoleto + ", ID de Asiento - " + idAsiento);
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("Comprar").addEventListener("click", function() {
+        var numeroBoleto = generateRandomTicket(); 
+        generarReciboCompra(numeroBoleto);
+    });
+
+    document.getElementById("registroForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Evitar el envío del formulario por defecto
+
+        var formData = new FormData(this);
+
+        fetch('http://localhost:8000/usuarios', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Hubo un problema al registrar el usuario.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Usuario registrado con éxito:', data);
+            alert('Usuario registrado con éxito.');
+        })
+        .catch(error => {
+            console.error('Error al registrar el usuario:', error);
+            alert('Hubo un problema al registrar el usuario. Por favor, inténtelo de nuevo más tarde.');
+        });
+    });
+});
+
+

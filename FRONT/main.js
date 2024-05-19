@@ -72,31 +72,43 @@ document.addEventListener("DOMContentLoaded", function() {
         var numeroBoleto = generateRandomTicket(); 
         generarReciboCompra(numeroBoleto);
     });
-
-    document.getElementById("registroForm").addEventListener("submit", function(event) {
-        event.preventDefault(); // Evitar el envío del formulario por defecto
-
-        var formData = new FormData(this);
-
-        fetch('http://localhost:8000/usuarios', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Hubo un problema al registrar el usuario.');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Usuario registrado con éxito:', data);
-            alert('Usuario registrado con éxito.');
-        })
-        .catch(error => {
-            console.error('Error al registrar el usuario:', error);
-            alert('Hubo un problema al registrar el usuario. Por favor, inténtelo de nuevo más tarde.');
-        });
-    });
 });
 
 
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.querySelector("form");
+  
+    form.addEventListener("submit", function(event) {
+      event.preventDefault(); // Evita que el formulario se envíe automáticamente
+  
+      // Recolecta los datos del formulario
+      const formData = new FormData(form);
+      const userData = {};
+      formData.forEach((value, key) => {
+        userData[key] = value;
+      });
+  
+      // Realiza la solicitud POST a la API
+      fetch("http://localhost:8000/usuarios", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userData)
+      })
+      .then(response => {
+        if (response.ok) {
+          // Si la solicitud es exitosa, muestra la alerta
+          alert("¡Usuario registrado con éxito!");
+          form.reset(); // Limpia el formulario después del registro exitoso
+        } else {
+          // Si hay algún error en la solicitud, muestra un mensaje de error
+          alert("Hubo un error al registrar el usuario. Por favor, inténtalo de nuevo.");
+        }
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        alert("Hubo un error al registrar el usuario. Por favor, inténtalo de nuevo.");
+      });
+    });
+  });
